@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import ThemeContext from "@/app/_context/ThemeContext";
+import { useContext, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -14,13 +15,16 @@ export default function HomePage() {
   ]);
 
   const COLORS = ["#7c3aed", "#a855f7", "#c084fc"];
+  const { theme } = useContext(ThemeContext);
+
+  const isLight = theme === "light";
 
   return (
-    <main className="h-screen p-2 px-0 w-full">
-
-      {/* Scrollable wrapper */}
-      <div className="h-full w-full p-4 bg-white shadow-2xl/15 rounded-lg overflow-y-auto">
-
+    <main className={`h-screen p-2 px-0 ${isLight?'bg-gray-50':'bg-gray-950'} w-full`}>
+      <div
+        className={`h-full w-full p-4 overflow-y-auto rounded-lg shadow-2xl/15 
+        ${isLight ? "bg-white scrollbar-light" : "bg-gray-900 scrollbar-dark"}`}
+      >
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-700 to-violet-600">
@@ -33,37 +37,57 @@ export default function HomePage() {
 
         {/* Stats */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white p-6 rounded-lg shadow border border-purple-100">
-            <h2 className="text-lg font-semibold text-gray-700">Total Products</h2>
-            <p className="text-4xl font-bold mt-2 text-purple-700">{products.length}</p>
-          </div>
 
-          <div className="bg-white p-6 rounded-lg shadow border border-purple-100">
-            <h2 className="text-lg font-semibold text-gray-700">Low Stock Items</h2>
-            <p className="text-4xl font-bold mt-2 text-red-500">
-              {products.filter(p => p.stock < 15).length}
-            </p>
-          </div>
+          {/* Card */}
+          {[
+            {
+              title: "Total Products",
+              value: products.length,
+              color: "text-purple-700",
+            },
+            {
+              title: "Low Stock Items",
+              value: products.filter((p) => p.stock < 15).length,
+              color: "text-red-500",
+            },
+            {
+              title: "Total Stock Value",
+              value: "₹" + products.reduce((a, p) => a + p.stock * p.price, 0),
+              color: "text-green-600",
+            },
+          ].map((card, i) => (
+            <div
+              key={i}
+              className={`p-6 rounded-lg shadow border
+              ${isLight
+                ? "bg-white border-purple-100 text-gray-700"
+                : "bg-gray-800 border-gray-800 text-gray-200"}`}
+            >
+              <h2 className="text-lg font-semibold">{card.title}</h2>
+              <p className={`text-4xl font-bold mt-2 ${card.color}`}>
+                {card.value}
+              </p>
+            </div>
+          ))}
 
-          <div className="bg-white p-6 rounded-lg shadow border border-purple-100">
-            <h2 className="text-lg font-semibold text-gray-700">Total Stock Value</h2>
-            <p className="text-4xl font-bold mt-2 text-green-600">
-              ₹{products.reduce((acc, p) => acc + p.stock * p.price, 0)}
-            </p>
-          </div>
         </section>
 
         {/* Charts Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
 
           {/* Bar Chart */}
-          <div className="bg-white p-6 rounded-lg shadow border border-purple-100">
-            <h2 className="text-xl font-bold mb-4 text-gray-700">Sales Overview</h2>
+          <div
+            className={`p-6 rounded-lg shadow border 
+            ${isLight
+              ? "bg-white border-purple-100 text-gray-700"
+              : "bg-gray-800 border-gray-800 text-gray-200"}`}
+          >
+            <h2 className="text-xl font-bold mb-4">Sales Overview</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={products}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
+                  <XAxis dataKey="name" stroke={isLight ? "#333" : "#ccc"} />
+                  <YAxis stroke={isLight ? "#333" : "#ccc"} />
                   <Tooltip />
                   <Bar dataKey="sales" fill="#7c3aed" radius={[6, 6, 0, 0]} />
                 </BarChart>
@@ -72,8 +96,13 @@ export default function HomePage() {
           </div>
 
           {/* Pie Chart */}
-          <div className="bg-white p-6 rounded-lg shadow border border-purple-100">
-            <h2 className="text-xl font-bold mb-4 text-gray-700">Sales Distribution</h2>
+          <div
+            className={`p-6 rounded-lg shadow border 
+            ${isLight
+              ? "bg-white border-purple-100 text-gray-700"
+              : "bg-gray-800 border-gray-800 text-gray-200"}`}
+          >
+            <h2 className="text-xl font-bold mb-4">Sales Distribution</h2>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -99,12 +128,19 @@ export default function HomePage() {
 
         {/* Inventory Table */}
         <section className="pb-20">
-          <h2 className="text-xl font-bold mb-4 text-gray-700">Inventory</h2>
+          <h2 className={`text-xl font-bold mb-4 ${isLight ? "text-gray-700" : "text-gray-200"}`}>
+            Inventory
+          </h2>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white rounded-lg shadow border border-purple-100">
+            <table
+              className={`min-w-full rounded-lg shadow border 
+              ${isLight
+                ? "bg-white border-purple-100 text-gray-700"
+                : "bg-gray-800 border-gray-800 text-gray-200"}`}
+            >
               <thead>
-                <tr className="bg-purple-200">
+                <tr className={`${isLight ? "bg-purple-200" : "bg-gray-800"}`}>
                   <th className="py-2 px-4 text-left">Product</th>
                   <th className="py-2 px-4 text-left">Stock</th>
                   <th className="py-2 px-4 text-left">Price (₹)</th>
@@ -113,9 +149,12 @@ export default function HomePage() {
 
               <tbody>
                 {products.map((p, idx) => (
-                  <tr key={idx} className="border-b">
+                  <tr key={idx} className="border-b border-gray-800">
                     <td className="py-2 px-4">{p.name}</td>
-                    <td className={`py-2 px-4 font-semibold ${p.stock < 15 ? "text-red-600" : "text-green-600"}`}>
+                    <td
+                      className={`py-2 px-4 font-semibold 
+                      ${p.stock < 15 ? "text-red-600" : "text-green-500"}`}
+                    >
                       {p.stock}
                     </td>
                     <td className="py-2 px-4">{p.price}</td>

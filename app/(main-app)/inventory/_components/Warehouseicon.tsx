@@ -1,37 +1,38 @@
 'use client'
+import ThemeContext from "@/app/_context/ThemeContext";
 import { useRouter } from "next/navigation";
-interface warehouseidProps{
+import { useContext } from "react";
+
+interface warehouseidProps {
   warehouseid: number;
 }
-export default function Warehouseicon(props:warehouseidProps) {
+
+export default function Warehouseicon({ warehouseid }: warehouseidProps) {
   const router = useRouter();
-  const {warehouseid} = props;
+  const { theme } = useContext(ThemeContext);
+
   return (
     <section
-    className='bg-white rounded-md p-3 border-purple-200 border shadow-lg shadow-purple-400/10'
-    onClick={()=>router.push(`/inventory/${warehouseid}`)}
+      onClick={() => router.push(`/inventory/${warehouseid}`)}
+      className={`
+        rounded-md p-3
+        border shadow-lg h-36
+        ${theme === 'light'
+          ? 'bg-white border-purple-200 shadow-purple-400/10 text-gray-800'
+          : 'bg-gray-800 border-gray-800 shadow-purple-900/10 text-gray-200'}
+      `}
     >
-      <p className=' font-medium text-lg mb-4'>Warehouse name</p>
+      <p className='font-medium text-lg mb-4'>Warehouse name</p>
       <div className='grid grid-cols-2 gap-3'>
-
         <div>
-          <p className='text-blue-500'>Last Updated</p>
-          <p className='text-gray-600'>19 mar 2024</p>
+          <p className='text-gray-400'>Last Updated</p>
+          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>19 mar 2024</p>
         </div>
         <div>
-
-          <p className='text-pink-900'>SKUs</p>
-          <p className='text-gray-600'>Total: 30</p>
-        </div>
-        <div>
-          <p className='text-purple-800'>Categories</p>
-          <p className='text-gray-600'>13 Main, 21 Sub</p>
-        </div>
-        <div>
-          <p className='text-green-900'>Active Worth</p>
-          <p className='text-gray-600'>30,000 Rs</p>
+          <p className='text-gray-400'>Id</p>
+          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>{warehouseid}</p>
         </div>
       </div>
     </section>
-  )
+  );
 }

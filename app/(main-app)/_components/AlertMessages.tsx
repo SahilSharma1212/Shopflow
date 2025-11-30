@@ -1,9 +1,11 @@
+import ThemeContext from '@/app/_context/ThemeContext'
 import { AlertTriangle } from 'lucide-react'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export default function AlertMessages() {
+  const {theme} = useContext(ThemeContext);
   return (
-    <div className='bg-red-100 p-3 rounded-lg flex items-center justify-start gap-3'>
+    <div className={`${theme == 'light' ? 'bg-red-100' : 'bg-red-800/30  text-red-400'} p-3 rounded-lg flex items-center justify-start gap-3`}>
         
         <AlertTriangle className='text-red-400/90'/>
         AlertMessages, Short in stock.

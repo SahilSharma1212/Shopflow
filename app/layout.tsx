@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeContextProvider from "./_context/ThemeContextProvider";
+import { style } from "motion/react-client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,8 @@ export default function RootLayout({
       
     <ThemeContextProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-y-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{scrollbarColor:'#00000000'}}
       >
         {children}
       </body>

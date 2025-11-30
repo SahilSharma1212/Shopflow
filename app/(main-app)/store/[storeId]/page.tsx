@@ -1,36 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "next/navigation";
 import StoreActionsSection from "./_components/StoreActionsSection";
+import ThemeContext from "@/app/_context/ThemeContext";
 
 export default function StorePage() {
   const { storeId } = useParams();
   const [activeTab, setActiveTab] = useState<string>("Analytics");
+  const { theme } = useContext(ThemeContext);
 
   const tabs = ["Analytics", "Current Stock", "Bill Transactions", "About"];
 
   return (
-    <main className="min-h-screen py-2 px-2 w-full bg-gray-50">
-      <div className="h-full w-full p-4 bg-white shadow-2xl/15 rounded-lg flex flex-col gap-4">
+    <main className={`min-h-screen py-2 px-2 w-full ${theme == 'light' ? 'bg-gray-50' : 'bg-gray-950'}`}>
+      <div className={`h-full w-full p-4 ${theme == 'light' ? 'bg-white' : 'bg-gray-900'} shadow-2xl/15 rounded-lg flex flex-col gap-4`}>
 
         {/* Header */}
-        <p className="text-2xl font-bold">Store ID: {storeId}</p>
+        <p className="text-2xl font-bold bg-linear-to-r from-purple-700 to-violet-600 text-transparent bg-clip-text">Store ID: {storeId}</p>
 
         {/* Actions Section */}
         <StoreActionsSection />
 
         {/* Tabs */}
-        <nav className="w-full grid grid-cols-4 text-center border-b border-purple-200">
+        <nav className={`w-full grid grid-cols-4 text-center border-b ${theme === "light" ? "border-purple-200" : "border-gray-700"}`}>
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`py-2 font-medium transition-colors ${
-                activeTab === tab
-                  ? "text-purple-700 border-b-2 border-purple-700"
-                  : "text-gray-700 hover:text-purple-600"
-              }`}
+              className={`py-2 font-medium transition-colors ${activeTab === tab
+                ? "text-purple-700 border-b-2 border-purple-700"
+                : theme === "light"
+                  ? "text-gray-700 hover:text-purple-600"
+                  : "text-gray-300 hover:text-purple-400"
+                }`}
             >
               {tab}
             </button>
@@ -39,10 +42,10 @@ export default function StorePage() {
 
         {/* Scrollable Tab Content */}
         <section className="w-full flex-1 overflow-auto mt-4 rounded-lg bg-white border-2 border-purple-200 p-4 flex flex-col gap-6 max-h-[65vh]">
-          
+
           {/* Analytics Tab */}
           {activeTab === "Analytics" && (
-            <div className="flex flex-col gap-6">
+            <div className="h-[70vh] gap-6">
               <h2 className="text-xl font-semibold">Sales Analytics</h2>
               <p>Here you can display charts for store sales, revenue, and performance.</p>
             </div>
