@@ -7,7 +7,7 @@ interface warehouseidProps {
   warehouseid: number;
 }
 
-export default function Warehouseicon({ warehouseid }: warehouseidProps) {
+export default function InventoryCard({ warehouseid }: warehouseidProps) {
   const router = useRouter();
   const { theme } = useContext(ThemeContext);
 
@@ -20,15 +20,15 @@ export default function Warehouseicon({ warehouseid }: warehouseidProps) {
           : "bg-gray-800 border-gray-700 shadow-purple-900/5 text-gray-200"
         }`}
     >
-      <p className='font-medium text-lg mb-4'>Inventory name</p>
-      <div className='grid grid-cols-2 gap-3'>
+      <p className="font-medium text-lg mb-2">inventory Name</p>
+      <div className="grid grid-cols-2 gap-3">
         <div>
-          <p className='text-gray-400'>Last Updated</p>
-          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>19 mar 2024</p>
+          <p className="text-gray-400">Last Updated</p>
+          <p className={theme === "light" ? "text-gray-600" : "text-gray-300"}>19 Mar 2024</p>
         </div>
         <div>
-          <p className='text-gray-400'>Id</p>
-          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>{warehouseid}</p>
+          <p className="text-gray-400">ID</p>
+          <p className={theme === "light" ? "text-gray-600" : "text-gray-300"}>{warehouseid}</p>
         </div>
       </div>
     </section>

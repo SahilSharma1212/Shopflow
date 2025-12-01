@@ -1,9 +1,6 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import AlertMessages from "../_components/AlertMessages";
-import ReminderMessage from "../_components/ReminderMessage";
-import SuccessMessage from "../_components/SuccessMessage";
 import Link from "next/link";
 import StoreIcon from "./_components/StoreIcon";
 import { useContext } from "react";
@@ -13,11 +10,8 @@ export default function HomePage() {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <main className={`min-h-screen py-2 px-1 w-full
-      ${theme === "light" ? "bg-gray-50" : "bg-gray-950"}
-    `}>
       <div className={`h-full w-full p-4 rounded-lg flex flex-col gap-2 shadow-2xl/15
-        ${theme === "light" ? "bg-white text-gray-800" : "bg-gray-900 text-gray-200"}
+        ${theme === "light" ? "bg-white text-gray-800 scrollbar-light" : "bg-gray-900 text-gray-200 scrollbar-dark"}
       `}>
 
         {/* Header */}
@@ -36,7 +30,7 @@ export default function HomePage() {
 
 
         {/* Stores section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto scrollbar-dark">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto scrollbar-dark p-3">
           <StoreIcon storeid={10}/>
           <StoreIcon storeid={20}/>
           <StoreIcon storeid={30}/>
@@ -50,6 +44,5 @@ export default function HomePage() {
         </div>
 
       </div>
-    </main>
   );
 }

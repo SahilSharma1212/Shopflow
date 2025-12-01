@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeContextProvider from "./_context/ThemeContextProvider";
-import { style } from "motion/react-client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,14 +22,17 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>)
+
+ {
+  
   return (
       
     <html lang="en">
       
     <ThemeContextProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased scrollbar-light`}
         style={{scrollbarColor:'#00000000'}}
       >
         {children}

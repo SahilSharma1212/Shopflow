@@ -7,12 +7,11 @@ import ThemeContext from "@/app/_context/ThemeContext";
 export default function DeliveryPage() {
   const {theme} = useContext(ThemeContext)
   return (
-    <main className={`min-h-screen py-2 px-1 w-full flex items-center justify-center ${theme == 'light' ? 'bg-gray-50' : 'bg-gray-950'}`}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className={`h-full w-full p-4 flex flex-col items-center justify-center relative gap-20 ${theme == 'light' ? 'bg-white' : 'bg-gray-900'} shadow-2xl/15 rounded-lg overflow-hidden`}
+        className={`h-full w-full p-4 flex flex-col items-center justify-center relative gap-20 ${theme == 'light' ? 'bg-white' : 'bg-gray-900'} shadow-2xl/15 overflow-hidden`}
       >
         {/* Decorative blur layers */}
         <motion.div className={`h-72 w-72 ${theme == 'light' ? 'bg-purple-500/20' : 'bg-purple-800/20'} blur-2xl absolute -top-10 -left-5`} />
@@ -36,6 +35,5 @@ export default function DeliveryPage() {
           <Bike size={70} className="text-purple-700" />
         </motion.div>
       </motion.div>
-    </main>
   );
 }

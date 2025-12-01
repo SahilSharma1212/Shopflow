@@ -28,7 +28,7 @@ export default function WarehousePage() {
       <div className={`${theme === "light" ? "bg-white border-purple-200" : "bg-gray-900 border-gray-700"} h-full w-full p-4 rounded-lg flex flex-col items-center justify-start gap-4 shadow-2xl/15`}>
 
         {/* Warehouse Header */}
-        <p className="text-2xl font-bold">Warehouse ID : {warehouseid}</p>
+        <p className="text-2xl font-bold">Inventory ID : {warehouseid}</p>
 
         {/* Actions Section */}
         <ActionsSection />

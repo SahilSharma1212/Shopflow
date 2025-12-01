@@ -20,12 +20,12 @@ export default function Sidebar() {
     const isLight = theme === "light";
 
     return (
-        <div className={`p-2 px-1 h-screen z-0 max-lg:w-20 ${isSideBaropen ? 'w-70' : 'w-20 '} ${theme == 'light' ? 'bg-gray-50' : 'bg-gray-950'}`}>
+        <div className={`max-sm:hidden h-screen z-0 max-lg:w-20 ${isSideBaropen ? 'w-70' : 'w-20 '} ${theme == 'light' ? 'bg-gray-50' : 'bg-gray-950'}`}>
 
             {/* actual sidebar */}
             <div
-                className={`h-full w-full rounded-xl flex flex-col px-3 py-4 relative gap-5 shadow-2xl/20
-                ${isLight ? "bg-white text-gray-700" : "bg-gray-900 text-gray-200"}`}
+                className={`h-full  w-full flex flex-col px-3 py-4 relative gap-5 border-r 
+                ${isLight ? "bg-white text-gray-700 border-gray-300" : "bg-gray-900 text-gray-200 border-gray-700"}`}
             >
 
                 {/* logo */}

@@ -20,9 +20,8 @@ export default function HomePage() {
   const isLight = theme === "light";
 
   return (
-    <main className={`h-screen p-2 px-0 pr-1 ${isLight?'bg-gray-50':'bg-gray-950'} w-full`}>
       <div
-        className={`h-full w-full p-4 overflow-y-auto rounded-lg shadow-2xl/15 
+        className={`h-full w-full p-4 overflow-y-auto shadow-2xl/15 
         ${isLight ? "bg-white scrollbar-light" : "bg-gray-900 scrollbar-dark"}`}
       >
         {/* Header */}
@@ -163,6 +162,5 @@ export default function HomePage() {
         </section>
 
       </div>
-    </main>
   );
 }
