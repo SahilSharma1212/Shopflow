@@ -26,27 +26,17 @@ export default function HomePage() {
 
           <Link
             href={'/inventory/new-warehouse'}
-            className="transition flex items-center justify-center gap-3 bg-linear-to-r from-purple-700 to-purple-600 rounded-sm p-2 text-white hover:bg-purple-700"
+            className="transition flex items-center justify-center gap-3 bg-linear-to-r from-purple-700 to-purple-600 rounded-sm p-2 text-white hover:bg-purple-700 max-md:scale-90"
           >
             <Plus />
-            Add Warehouse
+            <span className="max-md:hidden">Add</span> Inventory
           </Link>
         </header>
 
-        
-        <AlertMessages />
-        <AlertMessages /> 
-        {/* no current updates */}
-        <div className={`${theme == 'light' ? 'bg-gray-100' : 'bg-gray-800/30  text-gray-400'} p-3 rounded-lg flex items-center justify-start gap-3`}>
 
-          <MinusCircle className='text-gray-600/90' />
-          No Messages or alerts.
-        </div>
 
-        <header className="mt-3 text-xl font-semibold">
-          Your Warehouses
-          <hr className={"h-2"} />
-        </header>
+
+
 
         {/* Warehouses section */}
         <div
@@ -55,15 +45,6 @@ export default function HomePage() {
     ${theme === "light" ? "text-gray-800 scrollbar-thumb-gray-400 scrollbar-track-gray-200"
               : "text-gray-200 scrollbar-thumb-gray-600 scrollbar-track-gray-800"}`}
         >
-          <Warehouseicon warehouseid={10} />
-          <Warehouseicon warehouseid={20} />
-          <Warehouseicon warehouseid={30} />
-          <Warehouseicon warehouseid={40} />
-
-          <Warehouseicon warehouseid={10} />
-          <Warehouseicon warehouseid={20} />
-          <Warehouseicon warehouseid={30} />
-          <Warehouseicon warehouseid={40} />
           <Warehouseicon warehouseid={10} />
           <Warehouseicon warehouseid={20} />
           <Warehouseicon warehouseid={30} />

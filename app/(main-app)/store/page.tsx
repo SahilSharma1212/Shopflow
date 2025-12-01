@@ -28,25 +28,22 @@ export default function HomePage() {
 
           <Link
             href={'/inventory/new-warehouse'}
-            className="transition flex items-center justify-center gap-3 bg-linear-to-r from-purple-700 to-purple-600 rounded-sm p-2 text-white hover:bg-purple-700"
+            className="transition flex items-center justify-center gap-3 bg-linear-to-r from-purple-700 to-purple-600 rounded-sm p-2 text-white hover:bg-purple-700 max-sm:scale-80"
           >
-            <Plus />
-            Add Warehouse
+            <Plus />Add Store
           </Link>
         </header>
 
-        <SuccessMessage />
-        <AlertMessages />
-        <ReminderMessage />
-
-        <header className="mt-3 text-xl font-semibold">
-          Your Store
-          <hr className={`${theme === "light" ? "border-gray-300" : "border-gray-600"} h-2`} />
-        </header>
 
         {/* Stores section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto scrollbar-dark">
           <StoreIcon storeid={10}/>
+          <StoreIcon storeid={20}/>
+          <StoreIcon storeid={30}/>
+          <StoreIcon storeid={40}/>
+          <StoreIcon storeid={20}/>
+          <StoreIcon storeid={30}/>
+          <StoreIcon storeid={40}/>
           <StoreIcon storeid={20}/>
           <StoreIcon storeid={30}/>
           <StoreIcon storeid={40}/>

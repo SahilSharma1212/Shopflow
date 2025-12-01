@@ -30,7 +30,7 @@ export default function Sidebar() {
 
                 {/* logo */}
                 <div
-                    className='font-bold text-center bg-linear-to-r from-purple-900 via-violet-800 to-blue-800 bg-clip-text text-transparent cursor-pointer'
+                    className={`font-bold text-center bg-linear-to-r ${theme == 'light' ? 'from-purple-900 via-violet-800 to-blue-800' : 'from-purple-500 via-violet-500 to-blue-500'} bg-clip-text text-transparent cursor-pointer`}
                     onClick={() => setIsSideBaropen(!isSideBaropen)}
                 >
                     <span className='max-lg:hidden'>{isSideBaropen ? 'SHopBLox' : 'SB'}</span>
@@ -81,15 +81,6 @@ export default function Sidebar() {
                         {isLight ? <Moon size={20} /> : <Sun size={20} />}
                         {isSideBaropen && <span className='max-lg:hidden'>{isLight ? 'Dark' : 'Light'}</span>}
                     </button>
-                </div>
-
-                {/* bottom logo */}
-                <div
-                    className='font-bold text-center bg-linear-to-r from-purple-900 via-violet-800 to-blue-800 bg-clip-text text-transparent cursor-pointer'
-                    onClick={() => setIsSideBaropen(!isSideBaropen)}
-                >
-                    <span className='max-lg:hidden'>{isSideBaropen ? 'SHopBLox' : 'SB'}</span>
-                    <span className='lg:hidden'>SB</span>
                 </div>
             </div>
         </div>

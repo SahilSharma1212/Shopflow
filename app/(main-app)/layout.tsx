@@ -12,6 +12,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
   return (
     <div className={`flex max-h-screen ${theme == 'light' ? 'bg-[#fbf8ff]' : 'bg-black'}`}>
         <Sidebar/>
+        
         {children}
     </div>
   );

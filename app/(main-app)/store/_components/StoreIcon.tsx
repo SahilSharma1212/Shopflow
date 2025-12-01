@@ -14,7 +14,7 @@ export default function StoreIcon({ storeid }: StoreIconProps) {
   return (
     <section
       onClick={() => router.push(`/store/${storeid}`)}
-      className={`rounded-md p-3 border shadow-lg flex flex-col cursor-pointer hover:-translate-y-1.5 hover:scale-105 transition-all gap-3
+      className={`rounded-md p-3 border shadow-lg flex flex-col cursor-pointer hover:-translate-y-1.5 hover:scale-105 transition-all gap-3  max-sm:scale-90 max-sm:hover:scale-95
         ${theme === "light"
           ? "bg-white border-purple-200 shadow-purple-400/10 text-gray-800"
           : "bg-gray-800 border-gray-700 shadow-purple-900/5 text-gray-200"

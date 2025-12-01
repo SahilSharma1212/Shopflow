@@ -20,7 +20,7 @@ export default function HomePage() {
   const isLight = theme === "light";
 
   return (
-    <main className={`h-screen p-2 px-0 ${isLight?'bg-gray-50':'bg-gray-950'} w-full`}>
+    <main className={`h-screen p-2 px-0 pr-1 ${isLight?'bg-gray-50':'bg-gray-950'} w-full`}>
       <div
         className={`h-full w-full p-4 overflow-y-auto rounded-lg shadow-2xl/15 
         ${isLight ? "bg-white scrollbar-light" : "bg-gray-900 scrollbar-dark"}`}
@@ -30,9 +30,6 @@ export default function HomePage() {
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-700 to-violet-600">
             Dashboard
           </h1>
-          <button className="bg-linear-to-r from-purple-700 to-violet-600 text-white px-4 py-2 rounded hover:opacity-90">
-            Add Product
-          </button>
         </header>
 
         {/* Stats */}
