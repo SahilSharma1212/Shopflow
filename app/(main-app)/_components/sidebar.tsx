@@ -1,5 +1,5 @@
 "use client";
-import { LayoutDashboard, Moon, Package, Settings, ShoppingBag, Sun, User } from 'lucide-react';
+import { IndianRupee, LayoutDashboard, Moon, Package, Settings, ShoppingBag, Sun, User, UsersIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useContext, useState } from 'react'
 import { usePathname } from 'next/navigation';
@@ -12,8 +12,10 @@ export default function Sidebar() {
         { name: "Dashboard", link: "/home", Icon: LayoutDashboard },
         { name: "Inventory", link: "/inventory", Icon: Package },
         { name: "Store", link: "/store", Icon: ShoppingBag },
+        { name: "Expenses", link: "/expenses", Icon: IndianRupee },
+        { name: "Party", link: "/party", Icon: UsersIcon },
         { name: "Delivery", link: "/delivery", Icon: User },
-        { name: "Settings", link: "/settings", Icon: Settings }
+        { name: "Settings", link: "/settings", Icon: Settings },
     ];
 
     const { theme, setTheme } = useContext(ThemeContext);
@@ -25,15 +27,15 @@ export default function Sidebar() {
             {/* actual sidebar */}
             <div
                 className={`h-full  w-full flex flex-col px-3 py-4 relative gap-5 border-r 
-                ${isLight ? "bg-white text-gray-700 border-gray-300" : "bg-gray-900 text-gray-200 border-gray-700"}`}
+                ${isLight ? "bg-white text-gray-700 border-gray-300" : "bg-gray-900 text-gray-200 border-gray-700"} transition-all`}
             >
 
                 {/* logo */}
                 <div
-                    className={`font-bold text-center bg-linear-to-r ${theme == 'light' ? 'from-purple-900 via-violet-800 to-blue-800' : 'from-purple-500 via-violet-500 to-blue-500'} bg-clip-text text-transparent cursor-pointer`}
+                    className={`font-bold text-center bg-linear-to-r text-black  cursor-pointer`}
                     onClick={() => setIsSideBaropen(!isSideBaropen)}
                 >
-                    <span className='max-lg:hidden'>{isSideBaropen ? 'SHopBLox' : 'SB'}</span>
+                    <span className='max-lg:hidden'>{isSideBaropen ? 'ShopFlow' : 'SB'}</span>
                     <span className='lg:hidden'>SB</span>
                 </div>
 
@@ -50,13 +52,13 @@ export default function Sidebar() {
                                     ${isSideBaropen ? 'lg:px-3 lg:justify-start' : 'justify-center'}
                                     max-lg:justify-center
                                     ${isActive
-                                        ? (isLight
-                                            ? "text-purple-700 bg-purple-50 font-semibold"
-                                            : "text-purple-300 bg-gray-800 font-semibold")
-                                        : (isLight
-                                            ? "hover:bg-purple-100 text-gray-700"
-                                            : "hover:bg-gray-800 text-gray-300")
-                                    }
+                                            ? (isLight
+                                                ? " bg-black text-white font-semibold"
+                                                : "text-purple-300 bg-gray-800 font-semibold")
+                                            : (isLight
+                                                ? "hover:bg-gray-100 text-gray-700"
+                                                : "hover:bg-gray-800 text-gray-300")
+                                        }
                                     transition-colors`}
                                 >
                                     <item.Icon size={20} />
@@ -73,8 +75,8 @@ export default function Sidebar() {
                         ${isSideBaropen ? 'lg:px-3 lg:justify-start' : 'justify-center'}
                         max-lg:justify-center
                         ${isLight
-                            ? "text-purple-700 bg-purple-50 font-semibold"
-                            : "text-purple-300 bg-gray-800 font-semibold"}
+                                ? "bg-gray-50  text-black font-semibold"
+                                : "text-white bg-black  font-semibold"}
                         transition-colors`}
                         onClick={() => setTheme(isLight ? "dark" : "light")}
                     >

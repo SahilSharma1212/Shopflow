@@ -4,28 +4,28 @@ import { useRouter } from "next/navigation";
 import { Package, MapPin, TrendingUp, Copy, DollarSign } from "lucide-react"; // Import DollarSign icon
 import toast, { Toaster } from 'react-hot-toast';
 
-interface StoreCardProps {
-  storeId: number;
+interface InventoryCardProps {
+  inventoryId: number;
   name: string;
   totalItems: number;
   location: string;
   currentWorth: number; 
 }
 
-export default function StoreCard({ 
-  storeId, 
+export default function InventoryCard({ 
+  inventoryId, 
   name, 
   totalItems, 
   location,
   currentWorth 
-}: StoreCardProps) {
+}: InventoryCardProps) {
   const router = useRouter();
   
   // Function to handle ID copy
   const handleCopyId = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card navigation when clicking the copy button
-    navigator.clipboard.writeText(storeId.toString());
-    toast.success('Store ID Copied!', {
+    navigator.clipboard.writeText(inventoryId.toString());
+    toast.success('Warehouse ID Copied!', {
       style: {
         fontSize: '14px',
         fontWeight: '500',
@@ -46,7 +46,7 @@ export default function StoreCard({
     <>
       <Toaster position="bottom-center" />
       <section
-        onClick={() => router.push(`/store/${storeId}`)}
+        onClick={() => router.push(`/inventory/${inventoryId}`)}
         className={`
           rounded-xl p-5 border border-gray-200 bg-white 
           shadow-lg shadow-gray-300/10 
@@ -64,7 +64,7 @@ export default function StoreCard({
           <button 
             onClick={handleCopyId}
             className={`text-sm font-semibold bg-gray-200 text-gray-800 px-3 py-1 rounded-full flex items-center gap-1 transition hover:bg-gray-300`}
-            title="Copy Store ID"
+            title="Copy Warehouse ID"
           >
             <span className="text-gray-800 mr-1">ID:</span>
             <Copy size={14} className={`text-gray-800`} />
@@ -85,7 +85,7 @@ export default function StoreCard({
             </p>
           </div>
 
-          {/* 3. ADDED: Current Worth of Store */}
+          {/* 3. ADDED: Current Worth of Inventory */}
           <div className="flex flex-col">
             <p className="text-sm font-medium text-gray-500 flex items-center gap-1">
               <DollarSign className={`w-4 h-4 text-gray-500`} /> 

@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
     <div
       className={`flex h-screen ${
         theme == 'light'
-          ? 'bg-[#fbf8ff] scrollbar-light'
+          ? 'bg-[#ffffff] scrollbar-light'
           : 'bg-black scrollbar-dark'
       } max-sm:flex-col max-sm:pb-16 overflow-hidden`}
     >

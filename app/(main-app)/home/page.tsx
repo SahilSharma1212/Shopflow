@@ -1,166 +1,156 @@
-"use client";
+import { ArrowDown, ArrowDownUp, Home, LayoutDashboard, PackagePlus, ReceiptIndianRupee, UsersIcon, TrendingUp, TrendingDown, Clock, BarChart } from 'lucide-react'
+import React from 'react'
 
-import ThemeContext from "@/app/_context/ThemeContext";
-import { useContext, useState } from "react";
-import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell
-} from "recharts";
+// --- Button Data (Kept as you provided) ---
+const buttons = [
+  {
+    name: "+ Party",
+    icon: UsersIcon,
+    style: "hover:bg-blue-50 hover:scale-102 hover:-translate-y-0.5 text-blue-700 transition-all border-2 border-blue-100"
+  },
+  {
+    name: "ReStock",
+    icon: PackagePlus,
+    style: "hover:bg-green-50 hover:scale-102 hover:-translate-y-0.5 text-green-700 transition-all border-2 border-green-100"
+  },
+  {
+    name: "Manage",
+    icon: LayoutDashboard,
+    style: "hover:bg-indigo-50 hover:scale-102 hover:-translate-y-0.5 text-indigo-700 transition-all border-2 border-indigo-100"
+  },
+  {
+    name: "Exchange",
+    icon: ArrowDownUp,
+    style: "hover:bg-cyan-50 hover:scale-102 hover:-translate-y-0.5 text-cyan-700 transition-all border-2 border-cyan-100"
+  },
+  {
+    name: "Billing",
+    icon: ReceiptIndianRupee,
+    style: "hover:bg-blue-50 hover:scale-102 hover:-translate-y-0.5 text-blue-700 transition-all border-2 border-blue-100"
+  },
+  {
+    name: "Expense",
+    icon: ArrowDown,
+    style: "hover:bg-red-50 hover:scale-102 hover:-translate-y-0.5 text-red-700 transition-all border-2 border-red-100"
+  }
+]
 
-export default function HomePage() {
-  const [products] = useState([
-    { name: "Rice", stock: 50, price: 40, sales: 120 },
-    { name: "Sugar", stock: 20, price: 30, sales: 80 },
-    { name: "Milk", stock: 10, price: 50, sales: 150 },
-  ]);
+// --- Mock Data for Expenses (for scrollable list) ---
+const mockExpenses = [
+  { name: "Rent Payment", amount: 15000, party: "Landlord Corp", date: "Dec 1, 2025" },
+  { name: "Office Supplies", amount: 2500, party: "Staples Inc", date: "Nov 28, 2025" },
+  { name: "Software Subscription", amount: 4999, party: "Adobe", date: "Nov 25, 2025" },
+  { name: "Utility Bills", amount: 7200, party: "PowerGrid Co", date: "Nov 20, 2025" },
+  { name: "Team Lunch", amount: 3500, party: "Local Cafe", date: "Nov 15, 2025" },
+  { name: "Marketing Spend", amount: 9800, party: "Ads Platform", date: "Nov 10, 2025" },
+]
 
-  const COLORS = ["#7c3aed", "#a855f7", "#c084fc"];
-  const { theme } = useContext(ThemeContext);
-
-  const isLight = theme === "light";
-
+// --- Main Component ---
+export default function Page() {
   return (
-      <div
-        className={`h-full w-full p-4 overflow-y-auto shadow-2xl/15 
-        ${isLight ? "bg-white scrollbar-light" : "bg-gray-900 scrollbar-dark"}`}
-      >
-        {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-purple-700 to-violet-600">
-            Dashboard
-          </h1>
-        </header>
+    <section className={`min-h-screen bg-white pb-5`}>
+      <h1 className={`border-b px-4 py-4 text-2xl flex items-center justify-start gap-3 font-bold text-gray-800`}>
+        <Home strokeWidth={2} size={40} className='w-5 h-5' />
+        Home
+      </h1>
 
-        {/* Stats */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      {/* Home Actions Section */}
+      <section className={`px-4 py-6 flex items-start flex-wrap justify-start gap-5 max-sm:gap-3 max-sm:py-2 max-md:justify-evenly max-sm:px-2`}>
+        {
+          buttons.map((button, idx) => {
+            return (
+              <button
+                key={idx}
+                className={`
+                  flex items-start justify-center gap-1 flex-col py-4 rounded-lg w-28 bg-white px-4 border  
+                  hover:shadow-md max-sm:w-24 max-sm:text-sm
+                  cursor-pointer
+                  max-md:flex-row max-md:px-2 max-sm:py-2
+                  ${button.style}
+                `}
+              >
+                {<button.icon className='w-6 h-6' strokeWidth={1.5} />}
+                <span className='text-sm font-medium mt-1 text-black'>{button.name}</span>
+              </button>
+            )
+          })
+        }
+      </section>
 
-          {/* Card */}
-          {[
-            {
-              title: "Total Products",
-              value: products.length,
-              color: "text-purple-700",
-            },
-            {
-              title: "Low Stock Items",
-              value: products.filter((p) => p.stock < 15).length,
-              color: "text-red-500",
-            },
-            {
-              title: "Total Stock Value",
-              value: "₹" + products.reduce((a, p) => a + p.stock * p.price, 0),
-              color: "text-green-600",
-            },
-          ].map((card, i) => (
-            <div
-              key={i}
-              className={`p-6 rounded-lg shadow border
-              ${isLight
-                ? "bg-white border-purple-100 text-gray-700"
-                : "bg-gray-800 border-gray-800 text-gray-200"}`}
-            >
-              <h2 className="text-lg font-semibold">{card.title}</h2>
-              <p className={`text-4xl font-bold mt-2 ${card.color}`}>
-                {card.value}
-              </p>
-            </div>
-          ))}
+      {/* Stats Section: 3-column layout */}
+      <section className='grid grid-cols-1 md:grid-cols-2 gap-6 px-4 mt-2'>
 
-        </section>
+        {/* 1. Weekly Sales Card */}
+        <div className={` border-gray-200
+          p-5 rounded-xl  border bg-white 
+          text-green-600
+        `}>
+          <div className='flex items-center justify-between mb-4'>
+            <h3 className='text-sm font-semibold uppercase text-gray-500'>Weekly Sales</h3>
+            <TrendingUp className={`w-6 h-6 text-green-600`} strokeWidth={1.5} />
+          </div>
+          <p className='text-3xl font-bold mb-2 text-gray-800'>
+            ₹ 1,45,200
+          </p>
+          <p className='text-sm text-gray-500'>+12% vs last week</p>
+        </div>
 
-        {/* Charts Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        {/* 2. Pending Receivables Card */}
+        <div className={`
+          p-5 rounded-xl  border border-gray-200 bg-white 
+          text-yellow-600
+        `}>
+          <div className='flex items-center justify-between mb-4'>
+            <h3 className='text-sm font-semibold uppercase text-gray-500'>Pending Receivables</h3>
+            <Clock className={`w-6 h-6 text-yellow-600`} strokeWidth={1.5} />
+          </div>
+          <p className='text-3xl font-bold mb-2 text-gray-800'>
+            ₹ 45,900
+          </p>
+          <p className='text-sm text-gray-500'>3 parties due this week</p>
+        </div>
+      </section>
 
-          {/* Bar Chart */}
-          <div
-            className={`p-6 rounded-lg shadow border 
-            ${isLight
-              ? "bg-white border-purple-100 text-gray-700"
-              : "bg-gray-800 border-gray-800 text-gray-200"}`}
-          >
-            <h2 className="text-xl font-bold mb-4">Sales Overview</h2>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={products}>
-                  <XAxis dataKey="name" stroke={isLight ? "#333" : "#ccc"} />
-                  <YAxis stroke={isLight ? "#333" : "#ccc"} />
-                  <Tooltip />
-                  <Bar dataKey="sales" fill="#7c3aed" radius={[6, 6, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+
+      <section className={`px-4 mt-6`}>
+        <div className={`
+          p-5 rounded-xl  border border-gray-200 bg-white 
+          row-span-2 md:col-span-1 /* Layout setting */
+        `}>
+          <div className='flex items-center justify-between mb-4 border-b pb-2'>
+            <h3 className='text-base font-semibold text-gray-800 flex items-center gap-2'>
+              <TrendingDown className='w-5 h-5 text-red-600' strokeWidth={2} />
+              Recent Expenses
+            </h3>
+            <span className='text-sm font-medium text-red-600'>₹ 63,099 Total</span> {/* Updated total */}
           </div>
 
-          {/* Pie Chart */}
-          <div
-            className={`p-6 rounded-lg shadow border 
-            ${isLight
-              ? "bg-white border-purple-100 text-gray-700"
-              : "bg-gray-800 border-gray-800 text-gray-200"}`}
-          >
-            <h2 className="text-xl font-bold mb-4">Sales Distribution</h2>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={products}
-                    dataKey="sales"
-                    nameKey="name"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={5}
-                  >
-                    {products.map((_, i) => (
-                      <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
+          {/* Scrollable Expense List */}
+          <div className='max-h-72 overflow-y-auto space-y-3 pr-2 custom-scroll'>
+            {mockExpenses.map((expense, index) => (
+              <div key={index} className='flex justify-between items-center text-sm py-2 border-b last:border-b-0'>
+                <div className='flex flex-col'>
+                  <span className='font-medium text-gray-800'>{expense.name}</span>
+                  <span className='text-xs text-gray-500'>{expense.party} · {expense.date}</span>
+                </div>
+                <span className='font-bold text-red-600'>
+                  - ₹{expense.amount.toLocaleString('en-IN')}
+                </span>
+              </div>
+            ))}
           </div>
+        </div>
 
-        </section>
+      </section>
 
-        {/* Inventory Table */}
-        <section className="pb-20">
-          <h2 className={`text-xl font-bold mb-4 ${isLight ? "text-gray-700" : "text-gray-200"}`}>
-            Inventory
-          </h2>
+      {/* Analytics Chart Placeholder */}
+      <section className='px-4 mt-6'>
+        <div className='bg-white p-5 rounded-xl  border border-gray-200 h-60 flex items-center justify-center'>
+          <p className='text-gray-400 flex items-center gap-2 text-lg'><BarChart className='w-6 h-6' />Detailed Analytics Chart Placeholder</p>
+        </div>
+      </section>
 
-          <div className="overflow-x-auto">
-            <table
-              className={`min-w-full rounded-lg shadow border 
-              ${isLight
-                ? "bg-white border-purple-100 text-gray-700"
-                : "bg-gray-800 border-gray-800 text-gray-200"}`}
-            >
-              <thead>
-                <tr className={`${isLight ? "bg-purple-200" : "bg-gray-800"}`}>
-                  <th className="py-2 px-4 text-left">Product</th>
-                  <th className="py-2 px-4 text-left">Stock</th>
-                  <th className="py-2 px-4 text-left">Price (₹)</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {products.map((p, idx) => (
-                  <tr key={idx} className="border-b border-gray-800">
-                    <td className="py-2 px-4">{p.name}</td>
-                    <td
-                      className={`py-2 px-4 font-semibold 
-                      ${p.stock < 15 ? "text-red-600" : "text-green-500"}`}
-                    >
-                      {p.stock}
-                    </td>
-                    <td className="py-2 px-4">{p.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-      </div>
-  );
+    
+    </section>
+  )
 }
