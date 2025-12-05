@@ -1,43 +1,57 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { Package, MapPin, TrendingUp, Copy, DollarSign } from "lucide-react"; // Import DollarSign icon
+import { Package, MapPin, TrendingUp, Copy, DollarSign } from "lucide-react";
+import { useContext } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-
+import ThemeContext from "@/app/_context/ThemeContext";
+import {motion} from 'motion/react'
 interface InventoryCardProps {
   inventoryId: number;
   name: string;
   totalItems: number;
   location: string;
-  currentWorth: number; 
+  currentWorth: number;
 }
 
-export default function InventoryCard({ 
-  inventoryId, 
-  name, 
-  totalItems, 
+export default function InventoryCard({
+  inventoryId,
+  name,
+  totalItems,
   location,
-  currentWorth 
+  currentWorth
 }: InventoryCardProps) {
   const router = useRouter();
-  
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === 'dark';
+
+  // --- SUBTLE THEME-BASED CLASSES ---
+  const cardBg = isDark ? "dark-bg-color border border-gray-800 text-gray-100" : "bg-white border border-gray-200 text-gray-900";
+  const headerText = isDark ? "text-gray-100" : "text-gray-800";
+  const subText = isDark ? "text-gray-400" : "text-gray-500";
+
+  // Subtle Accents:
+  const accentText = isDark ? "text-zinc-300" : "text-zinc-600";
+  const worthText = isDark ? "text-emerald-500" : "text-emerald-700"; 
+  const locationText = isDark ? "text-gray-400" : "text-gray-600"; 
+
+  // Subtle Button:
+  const buttonBg = isDark ? "bg-gray-800 border border-gray-700 text-gray-400 hover:bg-gray-700" : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50";
+
+
   // Function to handle ID copy
   const handleCopyId = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card navigation when clicking the copy button
+    e.stopPropagation();
     navigator.clipboard.writeText(inventoryId.toString());
     toast.success('Warehouse ID Copied!', {
-      style: {
-        fontSize: '14px',
-        fontWeight: '500',
-      },
+      style: { fontSize: '14px', fontWeight: '500' },
     });
   };
 
-  // Helper function to format the worth as currency (e.g., $1,234,567)
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD', // You can change the currency code as needed
+      currency: 'USD',
       maximumFractionDigits: 0,
     }).format(amount);
   };
@@ -45,82 +59,88 @@ export default function InventoryCard({
   return (
     <>
       <Toaster position="bottom-center" />
-      <section
+      <motion.section
         onClick={() => router.push(`/inventory/${inventoryId}`)}
         className={`
-          rounded-xl p-5 border border-gray-200 bg-white 
-          shadow-lg shadow-gray-300/10 
+          rounded-xl p-5 ${cardBg} 
           flex flex-col gap-4 
           cursor-pointer 
           transition-all duration-300
-          hover:shadow-xl hover:shadow-gray-300/30 hover:-translate-y-1 
+          hover:shadow-lg hover:shadow-gray-400/10 hover:-translate-y-1
         `}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
       >
-        {/* 1. Card Header - Name and ID */}
-        <div className="flex justify-between items-start border-b pb-3 border-gray-100">
-          <h3 className="font-extrabold text-xl text-gray-800 leading-tight">
+        {/* Header */}
+        <div className={`flex justify-between items-start border-b pb-3 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <h3 className={`font-extrabold text-xl leading-tight ${headerText}`}>
             {name}
           </h3>
-          <button 
+          <button
             onClick={handleCopyId}
-            className={`text-sm font-semibold bg-gray-200 text-gray-800 px-3 py-1 rounded-full flex items-center gap-1 transition hover:bg-gray-300`}
+            className={`text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1 transition ${buttonBg}`} // Adjusted font size for better button fit
             title="Copy Warehouse ID"
           >
-            <span className="text-gray-800 mr-1">ID:</span>
-            <Copy size={14} className={`text-gray-800`} />
+            <span className="mr-1">ID:</span>
+            <Copy size={12} /> {/* Smaller icon size for button */}
           </button>
         </div>
 
-        {/* 2. Key Statistics/Information Section - Changed to grid-cols-3 */}
+        {/* Key Stats */}
         <div className="grid grid-cols-2 gap-4">
-          
           {/* Total Items */}
           <div className="flex flex-col">
-            <p className="text-sm font-medium text-gray-500 flex items-center gap-1">
-                <Package className={`w-4 h-4 text-gray-500`} /> 
-              Total Items
+            <p className={`text-sm font-medium flex items-center gap-1 ${subText}`}>
+              <Package className="w-4 h-4" /> Total Items
             </p>
-            <p className={`text-2xl font-bold text-indigo-500 mt-1`}>
+            <p className={`text-2xl font-bold mt-1 ${accentText}`}>
               {totalItems.toLocaleString()}
             </p>
           </div>
 
-          {/* 3. ADDED: Current Worth of Inventory */}
+          {/* Current Worth */}
           <div className="flex flex-col">
-            <p className="text-sm font-medium text-gray-500 flex items-center gap-1">
-              <DollarSign className={`w-4 h-4 text-gray-500`} /> 
-              Current Worth
+            <p className={`text-sm font-medium flex items-center gap-1 ${subText}`}>
+              <DollarSign className="w-4 h-4" /> Current Worth
             </p>
-            {/* Displaying the formatted currency value in an accent color */}
-            <p className={`text-2xl font-bold text-green-600 mt-1`}> 
+            <p className={`text-2xl font-bold mt-1 ${worthText}`}>
               {formatCurrency(currentWorth)}
             </p>
           </div>
-          
+
           {/* Location */}
           <div className="flex flex-col">
-            <p className="text-sm font-medium text-gray-500 flex items-center gap-1">
-              <MapPin className={`w-4 h-4 text-gray-500`} /> 
-              Location
+            <p className={`text-sm font-medium flex items-center gap-1 ${subText}`}>
+              <MapPin className="w-4 h-4" /> Location
             </p>
-            <p className={`text-base font-semibold text-blue-500 truncate mt-1`}>
+            <p className={`text-base font-semibold truncate mt-1 ${locationText}`}>
               {location}
             </p>
           </div>
+
+          {/* Added a placeholder for another stat to fill the grid nicely, if needed */}
+          {/* Example: Last Replenishment */}
+          <div className="flex flex-col">
+            <p className={`text-sm font-medium flex items-center gap-1 ${subText}`}>
+              <TrendingUp className="w-4 h-4" /> Last Inflow
+            </p>
+            <p className={`text-base font-semibold truncate mt-1 ${locationText}`}>
+              1 week ago
+            </p>
+          </div>
         </div>
-        
-        {/* 3. Footer/Metadata (Last Activity) */}
-        <div className="flex justify-between items-center pt-3 border-t border-gray-100">
-          <p className="text-xs text-gray-500 flex items-center gap-1">
-            <TrendingUp className={`w-3 h-3 text-yellow-500`} />
-            Last Activity:
+
+        {/* Footer */}
+        <div className={`flex justify-between items-center pt-3 border-t ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <p className={`text-xs flex items-center gap-1 ${subText}`}>
+            <TrendingUp className="w-3 h-3 text-yellow-500" /> Last Activity:
           </p>
-          <p className={`text-sm font-medium text-gray-500`}>
+          <p className={`text-sm font-medium ${subText}`}>
             23 May 2024
           </p>
         </div>
-
-      </section>
+      </motion.section>
     </>
   );
 }

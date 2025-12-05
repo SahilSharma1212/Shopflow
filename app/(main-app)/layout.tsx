@@ -13,10 +13,10 @@ export default function DashboardLayout({ children }: LayoutProps) {
 
   return (
     <div
-      className={`flex h-screen ${
+      className={`flex h-screen overflow-y-auto ${
         theme == 'light'
-          ? 'bg-[#ffffff] scrollbar-light'
-          : 'bg-black scrollbar-dark'
+          ? 'bg-[#ffffff] custom-scroll'
+          : 'bg-[rgb(13,13,13)] custom-scroll-dark'
       } max-sm:flex-col max-sm:pb-16 overflow-hidden`}
     >
       <Sidebar />

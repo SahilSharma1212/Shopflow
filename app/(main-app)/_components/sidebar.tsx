@@ -27,12 +27,12 @@ export default function Sidebar() {
             {/* actual sidebar */}
             <div
                 className={`h-full  w-full flex flex-col px-3 py-4 relative gap-5 border-r 
-                ${isLight ? "bg-white text-gray-700 border-gray-300" : "bg-gray-900 text-gray-200 border-gray-700"} transition-all`}
+                ${isLight ? "bg-white text-gray-700 border-gray-300" : "dark-bg-color text-gray-200 border-gray-700"} transition-all`}
             >
 
                 {/* logo */}
                 <div
-                    className={`font-bold text-center bg-linear-to-r text-black  cursor-pointer`}
+                    className={`font-bold text-center bg-linear-to-r ${isLight? "text-black" : "text-white"}  cursor-pointer`}
                     onClick={() => setIsSideBaropen(!isSideBaropen)}
                 >
                     <span className='max-lg:hidden'>{isSideBaropen ? 'ShopFlow' : 'SB'}</span>
@@ -54,10 +54,10 @@ export default function Sidebar() {
                                     ${isActive
                                             ? (isLight
                                                 ? " bg-black text-white font-semibold"
-                                                : "text-purple-300 bg-gray-800 font-semibold")
+                                                : "text-white bg-gray-700 font-semibold")
                                             : (isLight
                                                 ? "hover:bg-gray-100 text-gray-700"
-                                                : "hover:bg-gray-800 text-gray-300")
+                                                : "hover:bg-[rgb(22, 22, 22)] text-gray-300")
                                         }
                                     transition-colors`}
                                 >
@@ -76,7 +76,7 @@ export default function Sidebar() {
                         max-lg:justify-center
                         ${isLight
                                 ? "bg-gray-50  text-black font-semibold"
-                                : "text-white bg-black  font-semibold"}
+                                : "text-white bg-black/20  font-semibold"}
                         transition-colors`}
                         onClick={() => setTheme(isLight ? "dark" : "light")}
                     >

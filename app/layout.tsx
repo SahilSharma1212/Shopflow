@@ -32,7 +32,7 @@ export default function RootLayout({
       
     <ThemeContextProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased scrollbar-light`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased custom-scroll`}
         style={{scrollbarColor:'#00000000'}}
       >
         {children}
